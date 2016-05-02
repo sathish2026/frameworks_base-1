@@ -4818,6 +4818,17 @@ public final class PowerManagerService extends SystemService
 
             }
         }
+
+        @Override
+        /* updates the blocked uids, so if a wake lock is acquired for it
+         * can be released.
+         */
+        public void updateBlockedUids(int uid, boolean isBlocked) {
+            synchronized(mLock) {
+                qcNsrmPowExt.processPmsBlockedUid(uid, isBlocked,
+                                                             mWakeLocks);
+            }
+        }
     }
 
     @VisibleForTesting
